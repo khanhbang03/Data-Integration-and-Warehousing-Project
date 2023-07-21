@@ -12,7 +12,5 @@ Steps of the project:
   c. Cycle 3: "Shipping Date" from 1-Jan-2013 to 31-Dec-2013
   d. Cycle 4: "Shipping Date" from 1-Jan-2014 to 31-Dec-2014
   e. Cycle 5: "Shipping Date" from 1-Jan-2015 to 31-Dec-2015
-8.	Create pivot table from the DW data
-9.
-  a.	SELECT query to find out total number of unique (distinct) orders from table “Orders”
-  b.	From pivot table, find out year-wise average “Response” for each country
+8. Create pivot table from the DW data
+9. From pivot table, find out year-wise average “Response” for each country.
