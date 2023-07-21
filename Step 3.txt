@@ -1,0 +1,50 @@
+/* Step 3 (Staging to Dimension Tables) */
+USE GroupDW
+GO
+
+/*Prepare loading to dimension tables*/
+
+UPDATE Order_ST
+SET	Record_location_Exists = 'Y'
+FROM   Order_ST, DIM_LOCATION
+WHERE   City_ST = City;
+
+
+UPDATE Order_ST
+SET    Record_product_Exists = 'Y'
+FROM Order_ST, DIM_Product
+WHERE   ProductID_ST = Product_ID;
+
+
+UPDATE Order_ST
+SET    Record_customer_Exists = 'Y'
+FROM Order_ST, DIM_CUSTOMER
+WHERE   Customer_ID_ST = customer_ID;
+
+
+UPDATE Order_ST
+SET    Record_order_Exists = 'Y'
+FROM	Order_ST, DIM_ORDERS
+WHERE   Order_ID_ST = order_ID;
+
+/*Loading to dimension tables*/
+
+Insert into DIM_LOCATION(City,State,Country)
+select Distinct City_ST, State_ST, Country_ST
+From Order_ST
+where Record_location_Exists = 'N';
+
+Insert into DIM_PRODUCT(Product_ID, category,Sub_Category,Product_Name) 
+Select Distinct ProductID_ST, Category_ST, Sub_Category_ST, Product_Name_ST 
+From Order_ST
+where Record_product_Exists = 'N';
+
+Insert into DIM_CUSTOMER(customer_ID,customer_name,segment)
+select Distinct Customer_ID_ST, Customer_Name_ST, Segment_ST
+From Order_ST
+where Record_customer_Exists = 'N';
+
+Insert into DIM_ORDERS(order_ID, ship_mode, ship_date, order_date, order_priority)
+select Distinct Order_ID_ST, Ship_Mode_ST, Ship_Date_ST, Order_Date_ST, Order_Priority_ST
+From Order_ST
+where Record_order_Exists = 'N';

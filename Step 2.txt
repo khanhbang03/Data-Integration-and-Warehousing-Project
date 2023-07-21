@@ -1,0 +1,12 @@
+/* Step 2 (Source to Staging) */
+USE GroupDW
+Go
+
+Truncate TABLE Order_ST;
+
+INSERT INTO  Order_ST(Order_ID_ST , Order_Date_ST, Ship_Date_ST, Ship_Mode_ST, Customer_ID_ST, Customer_Name_ST, Segment_ST, City_ST, State_ST, Country_ST, ProductID_ST, Category_ST, Sub_Category_ST, Product_Name_ST, Sales_ST, Quantity_ST, Discount_ST, Profit_ST, Shipping_Cost_ST, Order_Priority_ST) 
+
+SELECT e.Order_ID, e.Order_Date, e.Ship_Date, e.ship_Mode, e.Customer_ID, e.Customer_Name, e.Segment, e.City, e.State, e.Country, e.Product_ID, e.Category, e.Sub_category, E.Product_Name, e.Sales, e.Quantity, e.Discount, e.Profit, e.Shipping_Cost, e.Order_Priority
+
+FROM GroupOP.dbo.Orders$ as e where e.Order_date between '01/01/2011' and '12/31/2015';
+

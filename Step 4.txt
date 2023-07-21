@@ -1,0 +1,42 @@
+/* Step 4 (Staging to Fact Table) */
+/*Prepare Loading to Fact Table*/
+Use GroupDW
+Go
+
+UPDATE   Order_ST
+SET   Order_dt_wk_st = calendar_wk
+FROM   Order_ST, DIM_Calendar
+WHERE   Order_Date_ST = Calendar_nk;
+
+UPDATE   Order_ST
+SET   Ship_dt_wk_st = calendar_wk
+FROM   Order_ST, DIM_Calendar
+WHERE   Ship_Date_ST = Calendar_nk;
+
+UPDATE   Order_ST
+SET	Customer_wk_st = customer_wk
+FROM   Order_ST, DIM_Customer
+WHERE   Customer_ID_ST = customer_ID;
+
+UPDATE   Order_ST
+SET   Location_wk_st = Loc_wk
+FROM   Order_ST, DIM_Location
+WHERE   City_ST = City;
+
+UPDATE   Order_ST
+SET   Order_wk_st = order_wk
+FROM   Order_ST, DIM_ORDERS
+WHERE   order_ID_ST = order_ID;
+
+UPDATE   Order_ST
+SET   Product_wk_st = Product_wk
+FROM   Order_ST, DIM_Product
+WHERE   ProductID_ST = Product_ID;
+
+/*Loading to Fact Table*/
+
+INSERT INTO FACT_ORDERS (sales, quantity, discount, profit, shipping_cost, Order_dt_wk, Ship_dt_wk, Loc_wk, Customer_wk, Prod_wk, Order_wk, response, year_wise, country)
+
+SELECT sales_st, quantity_st, discount_st, profit_st, shipping_cost_st, Order_dt_wk_st, Ship_dt_wk_st, Location_wk_st, Customer_wk_st, Product_wk_st, Order_wk_st, DATEDIFF(day, order_date_st, ship_date_st), YEAR(Ship_Date_ST), Country_ST
+
+FROM Order_ST;
