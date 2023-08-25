@@ -3,7 +3,7 @@ Steps of the project:
 1.	Create two databases, “GroupOP” and “GroupDW”
 2.	Import data from the excel file “global_superstore.xls” to the table “Orders” in database “GroupOP”
 3.	Create data warehouse tables as per the excel file “DW Design” in database “GroupDW”
-4.	Create staging tables/tables as per your design in database “GroupDW”
+4.	Create staging tables/tables as per the design of database “GroupDW”
 5.	Populate table “DIM_Calendar” for 5 years, from 1-Jan-2011 to 3-Dec-2015.
 6.	Write ETL scripts to transfer data from the staging table to the data warehouse tables.
 7. Perform 5 cycles of ETL (Extract, Transform, Load), with each cycle taking a specific time period based on the "Shipping Date":
